@@ -11,7 +11,6 @@ import './index.less';
 const Item = Form.Item;
 
 class Login extends Component {
-
   /**
    * 登录函数
    * @param e
