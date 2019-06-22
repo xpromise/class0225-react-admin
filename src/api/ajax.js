@@ -10,13 +10,13 @@ import { message } from "antd";
  * @param method
  * @returns 返回值一定成功状态promise（请求成功里面有数据，请求失败里面没有）
  */
-export default function ajax(url, data = {}, method = 'GET') {
+export default function ajax(url, data = {}, method = 'get') {
   // 初始化请求参数
   let reqParams = data;
-  // 转化为大写，在进行比较
-  method = method.toUpperCase();
+  // 转化为小写，在进行比较
+  method = method.toLowerCase();
 
-  if (method === 'GET') {
+  if (method === 'get') {
     reqParams = {
       params: data
     }
