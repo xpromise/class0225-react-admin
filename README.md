@@ -25,4 +25,13 @@
     * 版本回退：git reset --hard HEAD^  然后在更新
     * 删库，重新克隆
   
-    
+## 代理服务器
+* 是什么？ 是一个开发时跨域解决方案，上线不能用    
+* 原理：
+  * Browser和proxy server是同一个服务器（proxy server负责部署运行Browser代码）
+  * Browser向proxy server发送请求，proxy server会将请求转发到target server上，
+  * target server接受请求，将响应结果返回到proxy server上，
+  * proxy server再将target server响应结果响应给Browser
+* 配置：
+  * 在package.json中加上 "proxy": "http://localhost:5000"
+  * 重启服务器才会开启proxy server
