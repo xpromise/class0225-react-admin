@@ -22,7 +22,7 @@ class LeftNav extends Component {
         <span>{menu.title}</span>
       </Link>
     </Item>
-  }
+  };
 
   // render 之前只做一次
   componentWillMount() {
@@ -45,8 +45,6 @@ class LeftNav extends Component {
         >
           {
             children.map((item) => {
-              console.log(item.key);
-              console.log(pathname);
               if (item.key === pathname) {
                 // 说明当前地址是一个二级菜单，需要展开一级菜单
                 // 初始化展开的菜单

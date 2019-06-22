@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Form, Icon, Input, Button } from 'antd';
 import { reqLogin } from '../../api';
 
@@ -10,15 +10,15 @@ import './index.less';
 // 缓存一下
 const Item = Form.Item;
 
-class Login extends Component {
+function Login(props) {
   /**
    * 登录函数
    * @param e
    */
-  login = (e) => {
+  const login = (e) => {
     e.preventDefault();
     // 用来校验表单并获取表单的值
-    this.props.form.validateFields(async (error, values) => {
+    props.form.validateFields(async (error, values) => {
       // console.log(error, values);
       /*
         error 代表表单校验结果
@@ -33,10 +33,10 @@ class Login extends Component {
 
         if (result) {
           // 登录成功
-          this.props.history.replace('/');
+          props.history.replace('/');
         } else {
           // 登录失败
-          this.props.form.resetFields(['password']);
+          props.form.resetFields(['password']);
         }
 
       } else {
@@ -44,13 +44,13 @@ class Login extends Component {
         console.log('登录表单校验失败：', error);
       }
     })
-  }
+  };
 
   /**
    * 自定义校验规则函数
    * @returns {*}
    */
-  validator = (rule, value, callback) => {
+  const validator = (rule, value, callback) => {
     // callback必须调用
     // console.log(rule, value);
 
@@ -70,63 +70,61 @@ class Login extends Component {
       callback();
     }
 
-  }
+  };
 
-  render() {
-    // getFieldDecorator也是一个高阶组件
-    const { getFieldDecorator } = this.props.form;
+  // getFieldDecorator也是一个高阶组件
+  const { getFieldDecorator } = props.form;
 
-    return <div className="login">
-      <header className="login-header">
-        <img src={logo} alt="logo"/>
-        <h1>React项目: 后台管理系统</h1>
-      </header>
-      <section className="login-content">
-        <h2>用户登录</h2>
-        <Form onSubmit={this.login} className="login-form">
-          <Item>
-            {
-              getFieldDecorator(
-                'username',
-                {
-                  rules: [
-                    /*{required: true, message: '请输入用户名！'},
-                    {min: 4, message: '用户名必须大于4位'},
-                    {max: 15, message: '用户名必须小于15位'},
-                    {pattern: /^[a-zA-Z_0-9]+$/, message: '用户名只能包含英文字母、数字和下划线'}*/
-                    {
-                      validator: this.validator
-                    }
-                  ]
-                }
-              )(
-                <Input className="login-input" prefix={<Icon type="user" />} placeholder="用户名"/>
-              )
-            }
-          </Item>
-          <Item>
-            {
-              getFieldDecorator(
-                'password',
-                {
-                  rules: [
-                    {
-                      validator: this.validator
-                    }
-                  ]
-                }
-              )(
-                <Input className="login-input" prefix={<Icon type="lock" />} placeholder="密码" type="password"/>
-              )
-            }
-          </Item>
-          <Item>
-            <Button type="primary" htmlType="submit" className="login-btn">登录</Button>
-          </Item>
-        </Form>
-      </section>
-    </div>;
-  }
+  return <div className="login">
+    <header className="login-header">
+      <img src={logo} alt="logo"/>
+      <h1>React项目: 后台管理系统</h1>
+    </header>
+    <section className="login-content">
+      <h2>用户登录</h2>
+      <Form onSubmit={login} className="login-form">
+        <Item>
+          {
+            getFieldDecorator(
+              'username',
+              {
+                rules: [
+                  /*{required: true, message: '请输入用户名！'},
+                  {min: 4, message: '用户名必须大于4位'},
+                  {max: 15, message: '用户名必须小于15位'},
+                  {pattern: /^[a-zA-Z_0-9]+$/, message: '用户名只能包含英文字母、数字和下划线'}*/
+                  {
+                    validator: validator
+                  }
+                ]
+              }
+            )(
+              <Input className="login-input" prefix={<Icon type="user" />} placeholder="用户名"/>
+            )
+          }
+        </Item>
+        <Item>
+          {
+            getFieldDecorator(
+              'password',
+              {
+                rules: [
+                  {
+                    validator: validator
+                  }
+                ]
+              }
+            )(
+              <Input className="login-input" prefix={<Icon type="lock" />} placeholder="密码" type="password"/>
+            )
+          }
+        </Item>
+        <Item>
+          <Button type="primary" htmlType="submit" className="login-btn">登录</Button>
+        </Item>
+      </Form>
+    </section>
+  </div>;
 }
 
 // 返回值是一个包装组件   <Form(Login)><Login></Form(Login)>
