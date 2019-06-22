@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Form, Icon, Input, Button, message } from 'antd';
+import { Form, Icon, Input, Button } from 'antd';
 import { reqLogin } from '../../api';
 
 // 引入图片资源：在React脚手架中图片必须引入才会打包
-import logo from './logo.png';
+import logo from '../../assets/images/logo.png';
 // import 必须在最上面
 import './index.less';
 

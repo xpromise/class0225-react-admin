@@ -1,0 +1,36 @@
+.header-main-top{
+  text-align: right;
+  padding: 20px;
+  line-height: 0;
+  border-bottom: 1px solid #1DA57A;
+  font-size: 14px;
+}
+.header-main-left{
+  position: relative;
+  float: left;
+  font-size: 20px;
+  width: 400px;
+  text-align: center;
+  line-height: 40px;
+  &::after{
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 39px;
+    transform: translateX(-50%);
+    border-bottom: 20px solid transparent;
+    border-top: 20px solid #fff;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+  }
+}
+.header-main-right{
+  float: right;
+  line-height: 40px;
+  padding-right: 20px;
+  img{
+    margin: 0 10px;
+    width: 30px;
+    height: 30px;
+  }
+}
