@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Icon, Input, Button } from 'antd';
 import { reqLogin } from '../../api';
+import { setItem } from '../../utils/storage-tools';
 
 // 引入图片资源：在React脚手架中图片必须引入才会打包
 import logo from '../../assets/images/logo.png';
@@ -33,6 +34,9 @@ function Login(props) {
 
         if (result) {
           // 登录成功
+          // 只有这里能拿到用户名密码。保存用户信息
+          setItem(result);
+
           props.history.replace('/');
         } else {
           // 登录失败

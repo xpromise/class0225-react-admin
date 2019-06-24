@@ -75,7 +75,7 @@ class LeftNav extends Component {
         {
           this.menus
         }
-        {/*<Item key="home">
+        {/*<Item key="/home">
           <Link to="/home">
             <Icon type="home" />
             <span>首页</span>
@@ -89,6 +89,7 @@ class LeftNav extends Component {
               <span>商品</span>
             </span>
           }
+
         >
           <Item key="/category">
             <Link to="/category">
