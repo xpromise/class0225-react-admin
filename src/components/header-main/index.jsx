@@ -15,7 +15,7 @@ class HeaderMain extends Component {
     sysTime: Date.now(),
     weather: '晴',
     weatherImg: 'http://api.map.baidu.com/images/weather/day/qing.png'
-  }
+  };
 
   componentWillMount() {
     // 只要读取一次
@@ -65,7 +65,7 @@ class HeaderMain extends Component {
    * @returns {string|*}
    */
   getTitle = (nextProps) => {
-    console.log('getTitle()');
+    // console.log('getTitle()');
 
     const { pathname } = nextProps.location;
 

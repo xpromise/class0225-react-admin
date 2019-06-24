@@ -42,3 +42,5 @@ export const reqWeather = function () {
   });
 };
 
+export const reqCategories = (parentId) => ajax('/manage/category/list', {parentId});
+
