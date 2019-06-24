@@ -22,8 +22,6 @@ export default class Admin extends Component {
     // 判断登录是否成功
     const user = getItem();
 
-    // 优化登录成功不想再重新发送请求，redux
-
     // 用户是刷新进来的
     if (user && user._id) {
       // 发送请求验证 用户信息是否合法

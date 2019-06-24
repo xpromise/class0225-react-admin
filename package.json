@@ -5,6 +5,8 @@
   "dependencies": {
     "antd": "^3.19.6",
     "axios": "^0.19.0",
+    "dayjs": "^1.8.14",
+    "jsonp": "^0.2.1",
     "pubsub-js": "^1.7.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
