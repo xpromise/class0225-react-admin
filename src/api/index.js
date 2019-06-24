@@ -11,3 +11,10 @@ import ajax from './ajax';
  * @returns {返回值一定成功状态promise（请求成功里面有数据，请求失败里面没有）}
  */
 export const reqLogin = (username, password) => ajax('/login', {username, password}, 'POST');
+
+/**
+ * 请求验证用户信息
+ * @param id
+ * @returns {返回值一定成功状态promise（请求成功里面有数据，请求失败里面没有）}
+ */
+export const reqValidateUserInfo = (id) => ajax('/validate/user', {id}, 'POST');
