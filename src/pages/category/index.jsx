@@ -44,7 +44,9 @@ export default class Category extends Component {
     // 1. 表单校验
     // 2. 收集表单数据
     // console.log(this.addCategoryForm);
-    this.addCategoryForm.props.form.validateFields(async (err, values) => {
+    const { form } = this.addCategoryForm.props;
+
+    form.validateFields(async (err, values) => {
       if (!err) {
         // 校验通过
         console.log(values);
@@ -54,10 +56,25 @@ export default class Category extends Component {
         if (result) {
           // 添加分类成功~
           message.success('添加分类成功~', 2);
+          // 清空表单数据
+          form.resetFields(['parentId', 'categoryName']);
 
-          this.setState({
+          /*
+            如果是一级分类：就在一级分类列表中展示
+            如果是二级分类：就在二级分类中展示，而一级分类是不需要的
+           */
+
+          const options = {
             isShowAddCategory: false
-          })
+          };
+
+          if (result.parentId === '0') {
+            options.categories = [...this.state.categories, result];
+          }
+
+          // 统一更新
+          this.setState(options);
+
         }
       }
     })
@@ -79,6 +96,7 @@ export default class Category extends Component {
         className: 'category-operation',
         // 改变当列的显示
         render: text => {
+          console.log(text);
           return <div>
             <MyButton>修改名称</MyButton>
             <MyButton>查看其子品类</MyButton>
