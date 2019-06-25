@@ -29,7 +29,7 @@ export default function ajax(url, data = {}, method = 'get') {
       const { data } = res;
 
       if (data.status === 0) {
-        return data.data;
+        return data.data || {};
       } else {
         // 请求失败。给用户提示错误信息
         message.error(data.msg, 2);
