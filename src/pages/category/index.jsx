@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { Card, Button, Icon, Table } from 'antd';
+import { Card, Button, Icon, Table, Modal, message } from 'antd';
 
-import { reqCategories } from '../../api';
+import { reqCategories, reqAddCategory } from '../../api';
 import MyButton from '../../components/my-button';
+import AddCategoryForm from './add-category-form';
 import './index.less';
 
 export default class Category extends Component {
   state = {
     categories: [], // 一级分类列表
+    isShowAddCategory: false, // 显示添加品类
   }
 
   async componentDidMount() {
@@ -17,7 +19,54 @@ export default class Category extends Component {
     }
   }
 
+  /**
+   * 显示添加品类
+   */
+  showAddCategory = () => {
+    this.setState({
+      isShowAddCategory: true
+    })
+  };
+
+  /**
+   * 隐藏添加品类
+   */
+  hideAddCategory = () => {
+    this.setState({
+      isShowAddCategory: false
+    })
+  }
+
+  /**
+   * 添加品类
+   */
+  addCategory = () => {
+    // 1. 表单校验
+    // 2. 收集表单数据
+    // console.log(this.addCategoryForm);
+    this.addCategoryForm.props.form.validateFields(async (err, values) => {
+      if (!err) {
+        // 校验通过
+        console.log(values);
+        const { parentId, categoryName } = values;
+        const result = await reqAddCategory(parentId, categoryName);
+
+        if (result) {
+          // 添加分类成功~
+          message.success('添加分类成功~', 2);
+
+          this.setState({
+            isShowAddCategory: false
+          })
+        }
+      }
+    })
+    // 3. 发送请求
+  };
+
   render() {
+    const { categories, isShowAddCategory } = this.state;
+
     // 决定表头内容
     const columns = [
       {
@@ -61,10 +110,10 @@ export default class Category extends Component {
       },
     ];*/
 
-    return <Card title="一级分类列表" extra={<Button type="primary"><Icon type="plus" />添加品类</Button>}>
+    return <Card title="一级分类列表" extra={<Button type="primary" onClick={this.showAddCategory}><Icon type="plus" />添加品类</Button>}>
       <Table
         columns={columns}
-        dataSource={this.state.categories}
+        dataSource={categories}
         bordered
         pagination={{
           showSizeChanger: true,
@@ -74,6 +123,17 @@ export default class Category extends Component {
         }}
         rowKey="_id"
       />
+      <Modal
+        title="添加分类"
+        visible={isShowAddCategory}
+        onOk={this.addCategory}
+        onCancel={this.hideAddCategory}
+        okText="确认"
+        cancelText="取消"
+      >
+        <AddCategoryForm categories={categories} wrappedComponentRef={(form) => this.addCategoryForm = form}/>
+      </Modal>
+
     </Card>;
   }
 }
