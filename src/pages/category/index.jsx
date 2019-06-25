@@ -72,6 +72,7 @@ export default class Category extends Component {
           defaultPageSize: 3,
           showQuickJumper: true
         }}
+        rowKey="_id"
       />
     </Card>;
   }

@@ -26,8 +26,9 @@ export const reqValidateUserInfo = (id) => ajax('/validate/user', {id}, 'POST');
  * @returns {Promise<any>}
  */
 export const reqWeather = function () {
-  return new Promise((resolve, reject) => {
-    jsonp(`http://api.map.baidu.com/telematics/v3/weather?location=深圳&output=json&ak=3p49MVra6urFRGOT9s8UBWr2`, {}, function (err, data) {
+  let cancel = null;
+  const promise = new Promise((resolve, reject) => {
+    cancel = jsonp(`http://api.map.baidu.com/telematics/v3/weather?location=深圳&output=json&ak=3p49MVra6urFRGOT9s8UBWr2`, {}, function (err, data) {
       if (!err) {
         const { dayPictureUrl, weather } = data.results[0].weather_data[0];
         resolve({
@@ -40,6 +41,11 @@ export const reqWeather = function () {
       }
     });
   });
+
+  return {
+    promise,
+    cancel
+  }
 };
 
 export const reqCategories = (parentId) => ajax('/manage/category/list', {parentId});
