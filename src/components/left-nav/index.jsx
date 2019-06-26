@@ -26,7 +26,17 @@ class LeftNav extends Component {
 
   // render 之前只做一次
   componentWillMount() {
-    const { pathname } = this.props.location;
+    let { pathname } = this.props.location;
+
+    /*
+      pathname: '/product/saveupdate'  --> '/product'
+    */
+
+    const pathnameReg = /^\/product\//;
+
+    if (pathnameReg.test(pathname)) {
+      pathname = pathname.slice(0, 8);
+    }
 
     let isHome = true;
     // 根据menuList生成菜单

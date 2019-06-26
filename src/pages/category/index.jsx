@@ -17,12 +17,18 @@ export default class Category extends Component {
     loading: true, // 是否显示loading
   };
 
+  // 初始化临时保存分类数据（否则下面this.category.name会报错）
   category = {};
 
   componentDidMount() {
     this.fetchCategories('0');
   };
 
+  /**
+   * 请求分类数据函数
+   * @param parentId 分类id
+   * @returns {Promise<void>}
+   */
   fetchCategories = async (parentId) => {
     this.setState({
       loading: true
@@ -107,6 +113,9 @@ export default class Category extends Component {
     }
   };
 
+  /**
+   * 隐藏更新分类对话框
+   */
   hideUpdateCategoryName = () => {
     // 清空表单项的值
     this.updateCategoryNameForm.props.form.resetFields(['categoryName']);
@@ -116,6 +125,11 @@ export default class Category extends Component {
     })
   };
 
+  /**
+   * 临时保存要修改的分类数据
+   * @param category
+   * @returns {Function}
+   */
   saveCategory = (category) => {
     return () => {
       // 保存要更新的分类数据
@@ -127,6 +141,9 @@ export default class Category extends Component {
     }
   };
 
+  /**
+   * 更新分类名称
+   */
   updateCategoryName = () => {
     const { form } = this.updateCategoryNameForm.props;
     // 校验表单，收集数据
@@ -175,12 +192,17 @@ export default class Category extends Component {
           this.setState({
             isShowUpdateCategoryName: false,
             [stateName]: categories
-          })
+          });
         }
       }
     })
   };
 
+  /**
+   * 显示二级分类
+   * @param category
+   * @returns {Function}
+   */
   showSubCategory = (category) => {
     return async () => {
       // 请求二级分类数据
@@ -189,6 +211,9 @@ export default class Category extends Component {
     }
   };
 
+  /**
+   * 返回一级分类
+   */
   goBack = () => {
     this.setState({
       isShowSubCategories: false
