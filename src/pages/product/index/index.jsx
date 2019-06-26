@@ -19,11 +19,11 @@ export default class Index extends Component {
         products: result.list
       })
     }
-  }
+  };
 
   showAddProduct = () => {
     this.props.history.push('/product/saveupdate');
-  }
+  };
 
   render() {
 

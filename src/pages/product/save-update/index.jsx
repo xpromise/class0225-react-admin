@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, Icon, Form, Input, Button, Cascader, InputNumber  } from 'antd';
 
 import { reqCategories } from '../../../api';
+import RichTextEditor from './rich-text-editor';
 
 import './index.less';
 
@@ -11,7 +12,7 @@ export default class SaveUpdate extends Component {
 
   state = {
     options: []
-  }
+  };
 
   async componentDidMount() {
     const result = await reqCategories('0');
@@ -28,19 +29,17 @@ export default class SaveUpdate extends Component {
 
       })
     }
-  }
+  };
 
   /**
    * 加载二级分类数据
    * @param selectedOptions
    */
   loadData = async selectedOptions => {
-    console.log(selectedOptions); // 选中一级分类数据
     // 获取数组最后一项
     const targetOption = selectedOptions[selectedOptions.length - 1];
     // 显示loading图标
     targetOption.loading = true;
-    console.log(targetOption);
     // 发送请求、请求二级分类数据
     const result = await reqCategories(targetOption.value);
 
@@ -59,6 +58,7 @@ export default class SaveUpdate extends Component {
         options: [...this.state.options],
       });
     }
+
   };
 
   addProduct = (e) => {
@@ -79,7 +79,6 @@ export default class SaveUpdate extends Component {
         sm: { span: 10 },
       },
     };
-
 
     return <Card title={<div className="product-title"><Icon type="arrow-left" className='arrow-icon'/><span>添加商品</span></div>}>
       <Form {...formItemLayout} onSubmit={this.addProduct}>
@@ -105,6 +104,7 @@ export default class SaveUpdate extends Component {
           />
         </Item>
         <Item label="商品详情" wrapperCol={{span: 20}}>
+          <RichTextEditor />
         </Item>
         <Item>
           <Button type="primary" className="add-product-btn" htmlType="submit">提交</Button>
