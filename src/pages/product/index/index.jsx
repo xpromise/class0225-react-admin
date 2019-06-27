@@ -36,6 +36,12 @@ export default class Index extends Component {
     this.props.history.push('/product/saveupdate');
   };
 
+  showUpdateProduct = (product) => {
+    return () => {
+      this.props.history.push('/product/saveupdate', product);
+    }
+  };
+
   render() {
 
     const { products, total, loading } = this.state;
@@ -69,7 +75,7 @@ export default class Index extends Component {
         render: (product) => {
           return <div>
             <MyButton>详情</MyButton>
-            <MyButton>修改</MyButton>
+            <MyButton onClick={this.showUpdateProduct(product)}>修改</MyButton>
           </div>
         }
       },
