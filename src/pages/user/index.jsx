@@ -87,7 +87,7 @@ export default class User extends Component {
         title: '所属角色',
         dataIndex: 'role_id',
         render: (role_id) => {
-          const role = this.state.roles.find((role) => role._id === role_id);
+          const role = roles.find((role) => role._id === role_id);
           return role && role.name;
         }
       },
@@ -129,7 +129,7 @@ export default class User extends Component {
           okText='确认'
           cancelText='取消'
         >
-          <AddUserForm wrappedComponentRef={(form) => this.addUserForm = form} roles={this.state.roles}/>
+          <AddUserForm wrappedComponentRef={(form) => this.addUserForm = form} roles={roles}/>
         </Modal>
   
         <Modal

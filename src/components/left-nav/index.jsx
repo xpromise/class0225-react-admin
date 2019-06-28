@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import menuList from '../../config/menu-config';
+import { getItem } from '../../utils/storage-tools';
 
 import './index.less';
 import logo from '../../assets/images/logo.png';
@@ -27,6 +28,23 @@ class LeftNav extends Component {
   // render 之前只做一次
   componentWillMount() {
     let { pathname } = this.props.location;
+    let { role : { menus }, username } = getItem();
+
+    if (username === 'admin') {
+      // 就是admin
+      menus = [
+        '/home',
+        '/products',
+        '/category',
+        '/product',
+        '/user',
+        '/role',
+        '/charts',
+        '/charts/line',
+        '/charts/bar',
+        '/charts/pie',
+      ]
+    }
 
     /*
       pathname: '/product/saveupdate'  --> '/product'
@@ -40,7 +58,62 @@ class LeftNav extends Component {
 
     let isHome = true;
     // 根据menuList生成菜单
-    this.menus = menuList.map((menu) => {
+    this.menus = menuList.reduce((prev, curr) => {
+      // 判断是一级菜单还是二级菜单
+      const children = curr.children;
+
+      if (children) {
+        let isShowSubMenu = false;
+        // 二级菜单
+        /*
+          内容变 长度不变 用map
+          内容不变 长度变 用filter
+          内容变 长度变 用reduce
+         */
+        const subMenu = <SubMenu
+          key={curr.key}
+          title={
+            <span>
+              <Icon type={curr.icon} />
+              <span>{curr.title}</span>
+            </span>
+          }
+        >
+          {
+            children.reduce((prev, current) => {
+              const menu = menus.find((menu) => menu === current.key);
+              if (menu) {
+                if (current.key === pathname) {
+                  // 说明当前地址是一个二级菜单，需要展开一级菜单
+                  // 初始化展开的菜单
+                  this.openKey = curr.key;
+                  isHome = false;
+                }
+                // 找到了显示
+                isShowSubMenu = true;
+                return [...prev, this.createMenu(current)];
+              } else {
+                return prev;
+              }
+            }, [])
+          }
+        </SubMenu>;
+        return isShowSubMenu ? [...prev, subMenu] : prev;
+      } else {
+        // 一级菜单
+        // 从权限数组找是否匹配上一级菜单
+        const menu = menus.find((menu) => menu === curr.key);
+        if (menu) {
+          if (curr.key === pathname) isHome = false;
+          // 匹配上就添加进行，将来会显示菜单
+          return [...prev, this.createMenu(curr)];
+        } else {
+          return prev;
+        }
+      }
+    }, []);
+
+    /*this.menus = menuList.map((menu) => {
       // 判断是一级菜单还是二级菜单
       const children = menu.children;
 
@@ -72,7 +145,7 @@ class LeftNav extends Component {
         // 一级菜单
         return this.createMenu(menu);
       }
-    });
+    });*/
     // 初始化选中菜单
     this.selectedKey = isHome ? '/home' : pathname;
   }

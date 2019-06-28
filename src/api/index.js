@@ -75,7 +75,7 @@ export const reqGetRoles = () => ajax('/manage/role/list');
 
 export const reqAddRole = (name) => ajax('/manage/role/add', {name}, 'POST');
 
-export const reqUpdateRole = (_id, auth_name, menus) => ajax('/manage/role/update', {_id, auth_name, menus: JSON.stringify(menus)}, 'POST');
+export const reqUpdateRole = (_id, auth_name, menus) => ajax('/manage/role/update', {_id, auth_name, menus}, 'POST');
 
 export const reqGetUsers = () => ajax('/manage/user/list');
 

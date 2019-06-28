@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, Button, Icon, Table, Select, Input, message } from 'antd';
 
 import MyButton from '../../../components/my-button';
-import { reqProducts, reqSearchProduct, reqUpdateProductStatus, reqCategories } from '../../../api';
+import { reqProducts, reqSearchProduct, reqUpdateProductStatus } from '../../../api';
 import './index.less';
 
 const { Option } = Select;
