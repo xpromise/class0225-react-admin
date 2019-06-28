@@ -16,13 +16,11 @@ class UpdateRoleForm extends Component {
     checkedKeys: [],
   };
 
-  
   onCheck = (checkedKeys) => {
     console.log('onCheck', checkedKeys);
     this.setState({ checkedKeys });
   };
 
-  
   renderTreeNodes = data => data.map((item) => {
     if (item.children) {
       return (
