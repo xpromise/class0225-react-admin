@@ -68,3 +68,11 @@ export const reqUpdateProduct = ({name, desc, price, categoryId, pCategoryId, de
 export const reqDeleteProductImg = (name, id) => ajax('/manage/img/delete', {name, id}, 'POST');
 
 export const reqSearchProduct = ({searchType, searchContent, pageSize, pageNum}) => ajax('/manage/product/search', {[searchType]: searchContent, pageSize, pageNum});
+
+export const reqUpdateProductStatus = (productId, status) => ajax('/manage/product/updateStatus', {productId, status}, 'POST');
+
+export const reqGetRoles = () => ajax('/manage/role/list');
+
+export const reqAddRole = (name) => ajax('/manage/role/add', {name}, 'POST');
+
+export const reqUpdateRole = (_id, auth_name, menus) => ajax('/manage/role/update', {_id, auth_name, menus: JSON.stringify(menus)}, 'POST');

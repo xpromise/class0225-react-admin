@@ -28,7 +28,7 @@ export default class PicturesWall extends Component {
    */
   handlePreview = async file => {
     this.setState({
-      previewImage: file.url || file.preview,
+      previewImage: file.url || file.thumbUrl,
       previewVisible: true,
     });
   };
@@ -40,6 +40,8 @@ export default class PicturesWall extends Component {
 
     } else if (file.status === 'done') {
       // 上传成功~
+      fileList[fileList.length - 1].name = file.response.data.name;
+      fileList[fileList.length - 1].url = file.response.data.url;
       message.success('上传图片成功~', 2);
     } else if (file.status === 'error') {
       // 上传失败
@@ -48,6 +50,7 @@ export default class PicturesWall extends Component {
       // 删除图片
       // 发送请求，删除服务器的图片数据
       const id = this.props.id;
+      // const name = (file.response && file.response.data.name) || file.name;
       const name = file.name;
 
       const result = await reqDeleteProductImg(name, id);

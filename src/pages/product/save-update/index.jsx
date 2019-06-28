@@ -249,9 +249,11 @@ class SaveUpdate extends Component {
             )
           }
         </Item>
-        <Item label="商品图片" >
-          <PictureWall imgs={product ? product.imgs : []} id={product ? product._id : ''}/>
-        </Item>
+        {
+          product ? <Item label="商品图片" >
+            <PictureWall imgs={product ? product.imgs : []} id={product ? product._id : ''}/>
+          </Item> : null
+        }
         <Item label="商品详情" wrapperCol={{span: 20}}>
           <RichTextEditor ref={this.richTextEditorRef} detail={product ? product.detail : ''}/>
         </Item>
