@@ -25,8 +25,6 @@ export default class RichTextEditor extends Component {
     };
   }
 
-
-
   onEditorStateChange = (editorState) => {
     // console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())));
     this.setState({
