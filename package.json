@@ -5,9 +5,12 @@
   "dependencies": {
     "antd": "^3.19.6",
     "axios": "^0.19.0",
+    "bizcharts": "^3.5.4",
     "dayjs": "^1.8.14",
     "draft-js": "^0.10.5",
     "draftjs-to-html": "^0.8.4",
+    "echarts": "^4.2.1",
+    "echarts-for-react": "^2.0.15-beta.0",
     "html-to-draftjs": "^1.4.0",
     "jsonp": "^0.2.1",
     "pubsub-js": "^1.7.0",

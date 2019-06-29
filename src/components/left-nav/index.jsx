@@ -98,11 +98,13 @@ class LeftNav extends Component {
             }, [])
           }
         </SubMenu>;
+
         return isShowSubMenu ? [...prev, subMenu] : prev;
       } else {
         // 一级菜单
         // 从权限数组找是否匹配上一级菜单
         const menu = menus.find((menu) => menu === curr.key);
+
         if (menu) {
           if (curr.key === pathname) isHome = false;
           // 匹配上就添加进行，将来会显示菜单

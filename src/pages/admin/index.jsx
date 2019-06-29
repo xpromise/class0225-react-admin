@@ -131,6 +131,8 @@ export default class Admin extends Component {
                       return <Route key={item} path="/charts/pie" component={Pie}/>;
                     case '/home' :
                       return <Fragment key={item}><Route path="/home" component={Home}/><Redirect to="/home"/></Fragment>;
+                    default :
+                      return null;
                   }
                 })
               }
