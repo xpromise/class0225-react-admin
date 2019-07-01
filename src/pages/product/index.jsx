@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
 import Index from './index/index';
-import SaveUpdate from './save-update';
+import SaveUpdate from '../../containers/save-update';
 import Detail from './detail';
 
 export default class Product extends Component {

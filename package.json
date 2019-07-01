@@ -17,8 +17,11 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-draft-wysiwyg": "^1.13.2",
+    "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -30,11 +33,7 @@
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -46,7 +45,8 @@
     "customize-cra": "^0.2.13",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
-    "react-app-rewired": "^2.1.3"
+    "react-app-rewired": "^2.1.3",
+    "redux-devtools-extension": "^2.13.8"
   },
   "proxy": "http://localhost:5000"
 }

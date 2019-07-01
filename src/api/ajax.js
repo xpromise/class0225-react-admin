@@ -32,11 +32,13 @@ export default function ajax(url, data = {}, method = 'get') {
         return data.data || {};
       } else {
         // 请求失败。给用户提示错误信息
-        message.error(data.msg, 2);
+        // message.error(data.msg, 2);
+        return Promise.reject(data.msg);
       }
     })
     .catch((err) => {
       // 请求失败：网络错误、服务器内部错误等
-      message.error('网络出现异常，请刷新重试~', 2);
+      // message.error('网络出现异常，请刷新重试~', 2);
+      return Promise.reject('网络出现异常，请刷新重试~');
     })
 }

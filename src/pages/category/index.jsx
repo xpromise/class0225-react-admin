@@ -6,10 +6,11 @@ import MyButton from '../../components/my-button';
 import AddCategoryForm from './add-category-form';
 import UpdateCategoryNameForm from './update-category-name';
 import './index.less';
+import {getCategoriesAsync} from "../../redux/action-creators";
 
 export default class Category extends Component {
   state = {
-    categories: [], // 一级分类列表
+    // categories: [], // 一级分类列表
     subCategories: [], // 二级分类列表
     isShowSubCategories: false, // 是否显示二级分类列表
     isShowAddCategory: false, // 显示添加品类
@@ -21,7 +22,10 @@ export default class Category extends Component {
   category = {};
 
   componentDidMount() {
-    this.fetchCategories('0');
+    // this.fetchCategories('0');
+    if (!this.props.categories.length) {
+      this.props.getCategoriesAsync('0');
+    }
   };
 
   /**
@@ -53,6 +57,18 @@ export default class Category extends Component {
 
   };
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.addCategoryForm && nextProps.categories.length !== this.props.categories.length) {
+      this.addCategoryForm.props.form.resetFields(['categoryName']);
+      this.setState({
+        isShowAddCategory: false
+      });
+      message.success('更新分类名称成功~', 2);
+    }
+
+    return true;
+  }
+
   /**
    * 添加品类
    */
@@ -68,6 +84,10 @@ export default class Category extends Component {
         console.log(values);
         const { parentId, categoryName } = values;
         // 3. 发送请求
+        if (parentId === '0') {
+          this.props.addCategoryAsync(parentId, categoryName);
+          return ;
+        }
         const result = await reqAddCategory(parentId, categoryName);
 
         if (result) {
@@ -222,13 +242,26 @@ export default class Category extends Component {
 
   render() {
     const {
-      categories,
+      // categories,
       subCategories,
       isShowSubCategories,
       isShowAddCategory,
       isShowUpdateCategoryName,
-      loading
+      // loading
     } = this.state;
+
+
+    let { categories } = this.props;
+
+    let loading = true;
+    if (categories.length) {
+      loading = false;
+    }
+
+    if (categories.err) {
+      message.error(categories.err, 2);
+      categories = categories.category;
+    }
 
     // 决定表头内容
     const columns = [

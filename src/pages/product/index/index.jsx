@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Card, Button, Icon, Table, Select, Input, message } from 'antd';
 
 import MyButton from '../../../components/my-button';
@@ -158,14 +158,14 @@ export default class Index extends Component {
 
     return <Card
       title={
-        <div>
+        <Fragment>
           <Select defaultValue="productName" onChange={this.handleChange('searchType')}>
             <Option key={0} value="productName">根据商品名称</Option>
             <Option key={1} value="productDesc">根据商品描述</Option>
           </Select>
           <Input placeholder="关键字" className="search-input" onChange={this.handleChange('searchContent')}/>
           <Button type="primary" onClick={this.search}>搜索</Button>
-        </div>
+        </Fragment>
       }
       extra={<Button type="primary" onClick={this.showAddProduct}><Icon type="plus"/>添加产品</Button>}
     >

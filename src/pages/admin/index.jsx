@@ -3,7 +3,8 @@ import { Layout } from 'antd';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Home from '../home';
-import Category from '../category';
+// 将UI组件切换到容器组件
+import Category from '../../containers/category';
 import Product from '../product';
 import User from '../user';
 import Role from '../role';

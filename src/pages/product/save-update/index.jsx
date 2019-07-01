@@ -8,6 +8,7 @@ import RichTextEditor from './rich-text-editor';
 import PictureWall from './picture-wall';
 
 import './index.less';
+import {getCategoriesAsync} from "../../../redux/action-creators";
 
 const { Item } = Form;
 
@@ -22,8 +23,37 @@ class SaveUpdate extends Component {
    */
   richTextEditorRef = React.createRef();
 
+  static getDerivedStateFromProps(nextprops, prevState) {
+    if (nextprops.categories.length) {
+      return {
+        options: nextprops.categories.map((item) => {
+          return {
+            value: item._id,
+            label: item.name,
+            isLeaf: false,
+          }
+        })
+      }
+    } else {
+      return prevState;
+    }
+  }
+
   getCategories = async (parentId) => {
-    const result = await reqCategories(parentId);
+    let result = null;
+    if (parentId === '0') {
+      const categories = this.props.categories;
+
+      if (categories.length) {
+        result = categories;
+      } else {
+        // 重新发送请求
+        this.props.getCategoriesAsync('0');
+      }
+
+    } else {
+      result = await reqCategories(parentId);
+    }
 
     if (result) {
       // 判断如果是二级分类
@@ -57,7 +87,6 @@ class SaveUpdate extends Component {
 
   async componentDidMount() {
     this.getCategories('0');
-
     /*
       如果是一级分类：pCategoryId: 0  categoryId: 一级分类id
       如果是二级分类：pCategoryId:一级分类id  categoryId: 二级分类id
